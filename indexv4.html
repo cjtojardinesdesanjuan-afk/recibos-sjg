@@ -1,0 +1,83 @@
+<script>
+const API_URL = "https://script.google.com/macros/s/TU_DEPLOY_ID/exec"; // reemplaza con tu URL de web app
+
+async function cargarViviendas() {
+  try {
+    const resp = await fetch(API_URL + "?action=getViviendas", { method: "GET", mode: "cors" });
+    const data = await resp.json();
+
+    if (!data || data.status !== "ok" || !Array.isArray(data.viviendas)) {
+      mostrarError("No se pudieron cargar las viviendas.");
+      return;
+    }
+
+    const sel = document.getElementById("vivienda");
+    sel.innerHTML = "";
+    data.viviendas.forEach(v => {
+      const opt = document.createElement("option");
+      opt.value = v.vivienda;
+      opt.dataset.dueno = v.copropietario;
+      sel.appendChild(opt);
+    });
+    actualizarCopropietario();
+  } catch (e) {
+    mostrarError("Error al conectar con el servidor.");
+    console.error(e);
+  }
+}
+
+document.getElementById("vivienda").addEventListener("change", actualizarCopropietario);
+
+function actualizarCopropietario() {
+  const sel = document.getElementById("vivienda");
+  const dueno = sel.options[sel.selectedIndex]?.dataset?.dueno || "";
+  document.getElementById("copropietario").value = dueno;
+}
+
+async function enviarRecibo() {
+  const vivienda = document.getElementById("vivienda").value;
+  const concepto = document.getElementById("concepto").value;
+  const valor = document.getElementById("valor").value;
+
+  if (!vivienda || !concepto || !valor) {
+    mostrarError("Debe completar vivienda, concepto y valor.");
+    return;
+  }
+
+  try {
+    const resp = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ vivienda, concepto, valor })
+    });
+
+    const data = await resp.json();
+
+    if (data.status === "ok") {
+      mostrarSuccess(`Recibo generado. Nº: ${data.numeroRecibo}`);
+      document.getElementById("concepto").value = "";
+      document.getElementById("valor").value = "";
+    } else {
+      mostrarError(data.message || "Hubo un problema generando el recibo.");
+    }
+
+  } catch (err) {
+    mostrarError("Error comunicando con el servidor.");
+    console.error(err);
+  }
+}
+
+function mostrarSuccess(msg) {
+  document.getElementById("success").innerText = msg;
+  document.getElementById("success").style.display = "block";
+  document.getElementById("error").style.display = "none";
+}
+
+function mostrarError(msg) {
+  document.getElementById("error").innerText = msg;
+  document.getElementById("error").style.display = "block";
+  document.getElementById("success").style.display = "none";
+}
+
+window.onload = cargarViviendas;
+</script>
