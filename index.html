@@ -6,62 +6,102 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
+
+    /* === FONDO DEGRADADO CORPORATIVO === */
     body {
       font-family: Arial, sans-serif;
-      margin: 30px;
-      background: #f5f5f5;
+      margin: 0;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #e9f0ff 0%, #d1e0ff 100%);
     }
+
     h1 {
       text-align: center;
-      color: #333;
+      color: #004AAD;
+      font-size: 28px;
+      margin-bottom: 25px;
+      text-shadow: 0px 1px 2px rgba(0,0,0,0.15);
     }
+
+    /* === TARJETA PRINCIPAL === */
     .card {
       background: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      max-width: 480px;
+      padding: 30px;
+      border-radius: 18px;
+      max-width: 500px;
       margin: auto;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      box-shadow: 0px 8px 22px rgba(0,0,0,0.18);
+      border-top: 5px solid #004AAD;
     }
+
+    /* === ENCABEZADO CON LOGO === */
+    .logo-box {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .logo-box img {
+      width: 120px;
+      filter: drop-shadow(0px 3px 3px rgba(0,0,0,0.2));
+    }
+
     label {
       display: block;
-      margin-top: 15px;
+      margin-top: 18px;
       font-weight: bold;
+      color: #004AAD;
+      font-size: 14px;
     }
+
     select, input {
       width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      margin-top: 5px;
-    }
-    button {
-      margin-top: 20px;
-      width: 100%;
       padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #bbb;
+      margin-top: 6px;
+      font-size: 15px;
+      background: #f9faff;
+    }
+
+    /* === BOTÓN PROFESIONAL === */
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 14px;
       border: none;
-      background: #087fca;
+      background: #004AAD;
       color: white;
-      font-size: 16px;
-      border-radius: 8px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 10px;
       cursor: pointer;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.25);
+      transition: 0.2s;
     }
+
     button:hover {
-      background: #065f99;
+      background: #00337A;
+      transform: translateY(-2px);
     }
+
     #msg {
       margin-top: 20px;
-      padding: 10px;
-      border-radius: 8px;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 15px;
     }
   </style>
 
 </head>
 <body>
 
-<h1>SJ Gardens - Generar Recibo</h1>
+<h1>SJ Gardens – Generar Recibo</h1>
 
 <div class="card">
+
+  <div class="logo-box">
+    <img src="https://drive.google.com/uc?export=view&id=1nIVsgtWt5HQavqGycu-135UnMxqlqvnd">
+  </div>
 
   <label>Vivienda</label>
   <select id="viviendaSelect">
@@ -169,8 +209,3 @@
 
 </body>
 </html>
-
-
-
-
-
